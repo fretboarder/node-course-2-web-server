@@ -24,11 +24,13 @@ app.use((req, res, next) => {
 })
 
 // custom middleware for maintenance
-app.use((req, res, next) => {
-    res.render('maintenance.hbs', {
-        pageTitle: 'Maintenance'
+if (process.env.MODE === 'MAINTENANCE') {
+    app.use((req, res, next) => {
+        res.render('maintenance.hbs', {
+            pageTitle: 'Maintenance'
+        })
     })
-})
+}
 
 // middleware 'static'
 app.use(express.static(__dirname + '/public'))
